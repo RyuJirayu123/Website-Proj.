@@ -50,10 +50,10 @@ export default function Stats() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="text-[#d4a017] font-semibold text-sm uppercase tracking-widest">
+          <span className="text-[#c9a96e] font-semibold text-sm uppercase tracking-widest">
             ตัวเลขที่พิสูจน์ตัวเอง
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0a1f44] mt-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mt-3">
             ผลงานที่ผ่านมาของเรา
           </h2>
         </motion.div>
@@ -62,12 +62,12 @@ export default function Stats() {
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-gray-50 rounded-2xl p-7 text-center border border-gray-100 hover:border-[#d4a017]/30 hover:shadow-lg transition-all"
+              className="bg-gray-50 rounded-lg p-7 text-center border border-gray-100 hover:border-[#c9a96e]/30 hover:shadow-lg transition-all"
             >
-              <div className="text-3xl md:text-4xl font-bold text-[#d4a017] mb-2">
+              <div className="text-3xl md:text-4xl font-bold text-[#c9a96e] mb-2">
                 <CountUp
                   target={stat.value}
                   suffix={stat.suffix}
@@ -75,7 +75,7 @@ export default function Stats() {
                   isInView={isInView}
                 />
               </div>
-              <div className="text-[#0a1f44] font-semibold text-base mb-1">{stat.label}</div>
+              <div className="text-[#1a2332] font-semibold text-base mb-1">{stat.label}</div>
               <div className="text-gray-500 text-xs">{stat.sub}</div>
             </motion.div>
           ))}

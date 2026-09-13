@@ -30,20 +30,17 @@ export default function WhyUs() {
   const isInView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="why-us" className="py-24 bg-[#0a1f44] relative overflow-hidden">
-      {/* Decorative */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#d4a017]/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+    <section id="why-us" className="py-24 bg-[#1a2332]">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Header */}
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="text-[#d4a017] font-semibold text-sm uppercase tracking-widest">
+          <span className="text-[#c9a96e] font-semibold text-sm uppercase tracking-widest">
             ทำไมต้องเรา
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mt-3 mb-5">
@@ -54,17 +51,18 @@ export default function WhyUs() {
           </p>
         </motion.div>
 
+        {/* Reasons Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {reasons.map((r, i) => (
             <motion.div
               key={r.title}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.15 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: i * 0.1 }}
               className="flex gap-5 group"
             >
-              <div className="flex-shrink-0 w-14 h-14 bg-[#d4a017]/10 border border-[#d4a017]/30 rounded-xl flex items-center justify-center group-hover:bg-[#d4a017] transition-colors duration-300">
-                <r.icon className="text-[#d4a017] group-hover:text-white text-2xl transition-colors duration-300" />
+              <div className="flex-shrink-0 w-14 h-14 bg-[#c9a96e]/10 border border-[#c9a96e]/20 rounded-lg flex items-center justify-center group-hover:bg-[#c9a96e] transition-colors duration-300">
+                <r.icon className="text-[#c9a96e] group-hover:text-white text-2xl transition-colors duration-300" />
               </div>
               <div>
                 <h3 className="text-white font-bold text-lg mb-2">{r.title}</h3>
@@ -74,12 +72,12 @@ export default function WhyUs() {
           ))}
         </div>
 
-        {/* Bottom CTA band */}
+        {/* Bottom CTA Band */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 bg-[#d4a017]/10 border border-[#d4a017]/20 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6"
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-16 bg-[#c9a96e]/10 border border-[#c9a96e]/20 rounded-lg p-8 flex flex-col md:flex-row items-center justify-between gap-6"
         >
           <div>
             <div className="text-white font-bold text-xl mb-1">พร้อมเริ่มต้นแล้วหรือยัง?</div>
@@ -87,7 +85,7 @@ export default function WhyUs() {
           </div>
           <button
             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-[#d4a017] hover:bg-[#b8860b] text-white px-8 py-3.5 rounded font-semibold whitespace-nowrap transition-colors"
+            className="bg-[#c9a96e] hover:bg-[#a88b4a] text-white px-8 py-3.5 rounded font-semibold whitespace-nowrap transition-colors"
           >
             ขอนัดหมาย
           </button>

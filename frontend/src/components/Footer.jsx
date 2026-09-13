@@ -27,15 +27,15 @@ export default function Footer() {
     document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
 
   return (
-    <footer className="bg-[#060f22] text-white">
+    <footer className="bg-[#0f1520] text-white">
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-5">
-              <div className="w-9 h-9 bg-[#d4a017] rounded-sm flex items-center justify-center font-bold text-lg">A</div>
+              <div className="w-9 h-9 bg-[#c9a96e] rounded-sm flex items-center justify-center font-bold text-lg">A</div>
               <span className="font-bold text-lg">
-                Alpha <span className="text-[#d4a017]">Capital</span> Advisory
+                Alpha <span className="text-[#c9a96e]">Capital</span> Advisory
               </span>
             </div>
             <p className="text-white/50 text-sm leading-relaxed mb-6">
@@ -51,7 +51,7 @@ export default function Footer() {
                 { icon: HiLocationMarker, text: 'อาคาร XYZ ชั้น 20 ถนนสีลม กรุงเทพฯ' },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-2 text-white/50 text-sm">
-                  <item.icon className="text-[#d4a017] flex-shrink-0" />
+                  <item.icon className="text-[#c9a96e] flex-shrink-0" />
                   <span>{item.text}</span>
                 </div>
               ))}
@@ -63,7 +63,7 @@ export default function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#d4a017] flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#c9a96e] flex items-center justify-center transition-colors"
                 >
                   <Icon className="text-sm" />
                 </a>
@@ -80,7 +80,7 @@ export default function Footer() {
                   <li key={link}>
                     <a
                       href="#"
-                      className="text-white/50 hover:text-[#d4a017] text-sm transition-colors"
+                      className="text-white/50 hover:text-[#c9a96e] text-sm transition-colors"
                       onClick={(e) => e.preventDefault()}
                     >
                       {link}
@@ -101,7 +101,7 @@ export default function Footer() {
             <span>ได้รับใบอนุญาตประกอบธุรกิจหลักทรัพย์ จาก ก.ล.ต.</span>
             <a
               href="/admin/login"
-              className="text-[#d4a017] hover:underline"
+              className="text-[#c9a96e] hover:underline"
             >
               🔒 ผู้ดูแลระบบ (Admin)
             </a>

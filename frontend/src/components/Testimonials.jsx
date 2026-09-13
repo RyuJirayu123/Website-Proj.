@@ -43,10 +43,10 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-[#d4a017] font-semibold text-sm uppercase tracking-widest">
+          <span className="text-[#c9a96e] font-semibold text-sm uppercase tracking-widest">
             เสียงจากลูกค้า
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0a1f44] mt-3">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mt-3">
             พวกเขาพูดถึงเราอย่างไร
           </h2>
         </motion.div>
@@ -60,13 +60,13 @@ export default function Testimonials() {
           {/* Stars */}
           <div className="flex justify-center gap-1 mb-8">
             {[...Array(5)].map((_, i) => (
-              <HiStar key={i} className="text-[#d4a017] text-2xl" />
+              <HiStar key={i} className="text-[#c9a96e] text-2xl" />
             ))}
           </div>
 
           {/* Testimonial Card */}
-          <div className="bg-gray-50 rounded-2xl p-10 relative min-h-[220px]">
-            <div className="text-6xl text-[#d4a017]/20 font-serif absolute top-6 left-8">&ldquo;</div>
+          <div className="bg-gray-50 rounded-lg p-10 relative min-h-[220px]">
+            <div className="text-6xl text-[#c9a96e]/20 font-serif absolute top-6 left-8 select-none">&ldquo;</div>
             <AnimatePresence mode="wait">
               <motion.div
                 key={current}
@@ -79,10 +79,10 @@ export default function Testimonials() {
                   {testimonials[current].text}
                 </p>
                 <div className="text-center">
-                  <div className="inline-block w-12 h-12 rounded-full bg-[#0a1f44] text-white flex items-center justify-center font-bold text-base mx-auto mb-3">
+                  <div className="w-12 h-12 rounded-full bg-[#1a2332] text-white flex items-center justify-center font-bold text-base mx-auto mb-3">
                     {testimonials[current].name.charAt(4)}
                   </div>
-                  <div className="font-bold text-[#0a1f44]">{testimonials[current].name}</div>
+                  <div className="font-bold text-[#1a2332]">{testimonials[current].name}</div>
                   <div className="text-gray-500 text-sm">{testimonials[current].title}</div>
                 </div>
               </motion.div>
@@ -93,7 +93,7 @@ export default function Testimonials() {
           <div className="flex justify-center items-center gap-4 mt-8">
             <button
               onClick={prev}
-              className="w-10 h-10 rounded-full border border-gray-300 hover:border-[#d4a017] flex items-center justify-center text-gray-600 hover:text-[#d4a017] transition-colors"
+              className="w-10 h-10 rounded-full border border-gray-300 hover:border-[#c9a96e] flex items-center justify-center text-gray-600 hover:text-[#c9a96e] transition-colors"
             >
               <HiChevronLeft className="text-xl" />
             </button>
@@ -102,15 +102,15 @@ export default function Testimonials() {
                 <button
                   key={i}
                   onClick={() => setCurrent(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    i === current ? 'bg-[#d4a017] w-6' : 'bg-gray-300'
+                  className={`h-2 rounded-full transition-all ${
+                    i === current ? 'bg-[#c9a96e] w-6' : 'bg-gray-300 w-2'
                   }`}
                 />
               ))}
             </div>
             <button
               onClick={next}
-              className="w-10 h-10 rounded-full border border-gray-300 hover:border-[#d4a017] flex items-center justify-center text-gray-600 hover:text-[#d4a017] transition-colors"
+              className="w-10 h-10 rounded-full border border-gray-300 hover:border-[#c9a96e] flex items-center justify-center text-gray-600 hover:text-[#c9a96e] transition-colors"
             >
               <HiChevronRight className="text-xl" />
             </button>
