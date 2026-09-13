@@ -93,13 +93,19 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-white/30 text-xs text-center sm:text-left">
+        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
+          <p className="text-center sm:text-left">
             © {new Date().getFullYear()} Alpha Capital Advisory Co., Ltd. All rights reserved.
           </p>
-          <p className="text-white/30 text-xs text-center">
-            ได้รับใบอนุญาตประกอบธุรกิจหลักทรัพย์ประเภทที่ปรึกษาทางการเงิน จาก ก.ล.ต. เลขที่ xxx
-          </p>
+          <div className="flex items-center gap-4">
+            <span>ได้รับใบอนุญาตประกอบธุรกิจหลักทรัพย์ จาก ก.ล.ต.</span>
+            <a
+              href="/admin/login"
+              className="text-[#d4a017] hover:underline"
+            >
+              🔒 ผู้ดูแลระบบ (Admin)
+            </a>
+          </div>
         </div>
       </div>
     </footer>
