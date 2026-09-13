@@ -1,15 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const { db } = require('../db/database')
+const { sendContactNotification } = require('../services/email')
 
 /**
  * POST /api/contact
- * รับข้อมูลจาก Contact Form และบันทึกลง DB
  */
 router.post('/', async (req, res) => {
   const { name, company, email, phone, service, message } = req.body
 
-  // Validate
   if (!name || !email) {
     return res.status(400).json({ error: 'กรุณากรอกชื่อและอีเมล' })
   }
@@ -26,6 +25,9 @@ router.post('/', async (req, res) => {
     })
 
     console.log(`📬 New contact from: ${name} <${email}>`)
+
+    // ส่ง Email แจ้งเตือน (non-blocking)
+    sendContactNotification({ name, company, email, phone, service, message })
 
     return res.status(201).json({
       success: true,

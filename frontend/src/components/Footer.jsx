@@ -1,30 +1,31 @@
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi'
 import { FaLinkedinIn, FaFacebookF, FaLine } from 'react-icons/fa'
-
-const footerLinks = {
-  บริการ: [
-    'M&A Advisory',
-    'การระดมทุน',
-    'Valuation',
-    'กลยุทธ์องค์กร',
-    'Restructuring',
-  ],
-  'เกี่ยวกับ': [
-    'เกี่ยวกับเรา',
-    'ทีมงาน',
-    'ข่าวสาร',
-    'ร่วมงานกับเรา',
-  ],
-  'กฎหมาย': [
-    'นโยบายความเป็นส่วนตัว',
-    'ข้อกำหนดการใช้งาน',
-    'เปิดเผยข้อมูล ก.ล.ต.',
-  ],
-}
+import { Link } from 'react-router-dom'
+import { useLang } from '../context/LanguageContext'
 
 export default function Footer() {
-  const scrollTo = (id) =>
-    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' })
+  const { t, lang } = useLang()
+
+  const footerLinks = {
+    [t.footer.services]: [
+      'M&A Advisory',
+      lang === 'th' ? 'การระดมทุน' : 'Capital Raising',
+      'Valuation & Due Diligence',
+      lang === 'th' ? 'กลยุทธ์องค์กร' : 'Corporate Strategy',
+      'Restructuring',
+    ],
+    [t.footer.about]: [
+      lang === 'th' ? 'เกี่ยวกับเรา' : 'About Us',
+      lang === 'th' ? 'ทีมงาน' : 'Our Team',
+      lang === 'th' ? 'ผลงาน' : 'Case Studies',
+      lang === 'th' ? 'บทความ' : 'Insights',
+    ],
+    [t.footer.legal]: [
+      lang === 'th' ? 'นโยบายความเป็นส่วนตัว' : 'Privacy Policy',
+      lang === 'th' ? 'ข้อกำหนดการใช้งาน' : 'Terms of Service',
+      lang === 'th' ? 'เปิดเผยข้อมูล ก.ล.ต.' : 'SEC Disclosures',
+    ],
+  }
 
   return (
     <footer className="bg-[#0f1520] text-white">
@@ -39,8 +40,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-white/50 text-sm leading-relaxed mb-6">
-              ที่ปรึกษาทางการเงินองค์กรชั้นนำ ให้บริการครบวงจรด้านการควบรวมกิจการ
-              การระดมทุน และกลยุทธ์ทางการเงินสำหรับธุรกิจทุกขนาด
+              {t.footer.desc}
             </p>
 
             {/* Contact */}
@@ -48,7 +48,7 @@ export default function Footer() {
               {[
                 { icon: HiPhone, text: '02-xxx-xxxx' },
                 { icon: HiMail, text: 'info@alphacapital.th' },
-                { icon: HiLocationMarker, text: 'อาคาร XYZ ชั้น 20 ถนนสีลม กรุงเทพฯ' },
+                { icon: HiLocationMarker, text: lang === 'th' ? 'อาคาร XYZ ชั้น 20 ถนนสีลม กรุงเทพฯ' : 'XYZ Tower, 20th Floor, Silom Rd., Bangkok' },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-2 text-white/50 text-sm">
                   <item.icon className="text-[#c9a96e] flex-shrink-0" />
@@ -95,16 +95,16 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
           <p className="text-center sm:text-left">
-            © {new Date().getFullYear()} Alpha Capital Advisory Co., Ltd. All rights reserved.
+            © {new Date().getFullYear()} {t.footer.copyright}
           </p>
           <div className="flex items-center gap-4">
-            <span>ได้รับใบอนุญาตประกอบธุรกิจหลักทรัพย์ จาก ก.ล.ต.</span>
-            <a
-              href="/admin/login"
+            <span>{t.footer.license}</span>
+            <Link
+              to="/admin/login"
               className="text-[#c9a96e] hover:underline"
             >
-              🔒 ผู้ดูแลระบบ (Admin)
-            </a>
+              {t.footer.admin}
+            </Link>
           </div>
         </div>
       </div>

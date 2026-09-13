@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion'
 import { HiArrowRight, HiPhone } from 'react-icons/hi'
+import { useLang } from '../context/LanguageContext'
 
 export default function Hero() {
+  const { t } = useLang()
+
   return (
     <section
       id="hero"
@@ -17,7 +20,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
         >
           <span className="inline-block bg-[#c9a96e]/10 text-[#c9a96e] text-sm font-semibold px-4 py-1.5 rounded-full border border-[#c9a96e]/20 mb-6">
-            Corporate Financial Advisory
+            {t.hero.badge}
           </span>
         </motion.div>
 
@@ -27,11 +30,11 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
         >
-          ที่ปรึกษาการเงิน
+          {t.hero.line1}
           <br />
-          <span className="text-[#c9a96e]">ระดับองค์กร</span>
+          <span className="text-[#c9a96e]">{t.hero.line2}</span>
           <br />
-          ที่คุณไว้วางใจได้
+          {t.hero.line3}
         </motion.h1>
 
         <motion.p
@@ -40,8 +43,7 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          เราช่วยองค์กรของคุณตัดสินใจทางการเงินอย่างชาญฉลาด
-          ด้วยประสบการณ์กว่า 20 ปีในตลาดทุนไทยและระดับนานาชาติ
+          {t.hero.sub}
         </motion.p>
 
         <motion.div
@@ -54,7 +56,7 @@ export default function Hero() {
             onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
             className="group inline-flex items-center justify-center gap-2 bg-[#c9a96e] hover:bg-[#a88b4a] text-white px-8 py-4 rounded-lg font-semibold text-base transition-colors duration-200"
           >
-            ติดต่อที่ปรึกษา
+            {t.hero.cta1}
             <HiArrowRight className="group-hover:translate-x-1 transition-transform" />
           </button>
           <button
@@ -62,7 +64,7 @@ export default function Hero() {
             className="inline-flex items-center justify-center gap-2 border border-white/20 hover:border-[#c9a96e] text-white hover:text-[#c9a96e] px-8 py-4 rounded-lg font-semibold text-base transition-colors duration-200"
           >
             <HiPhone />
-            ดูบริการของเรา
+            {t.hero.cta2}
           </button>
         </motion.div>
 
@@ -74,11 +76,11 @@ export default function Hero() {
           className="mt-20 grid grid-cols-3 gap-6 max-w-2xl mx-auto border-t border-white/10 pt-10"
         >
           {[
-            { value: '20+', label: 'ปีประสบการณ์' },
-            { value: '500+', label: 'ลูกค้าองค์กร' },
-            { value: '฿200B+', label: 'มูลค่าดีลที่ปิด' },
-          ].map((item) => (
-            <div key={item.label} className="text-center">
+            { value: t.hero.stat1Val, label: t.hero.stat1Label },
+            { value: t.hero.stat2Val, label: t.hero.stat2Label },
+            { value: t.hero.stat3Val, label: t.hero.stat3Label },
+          ].map((item, idx) => (
+            <div key={idx} className="text-center">
               <div className="text-2xl md:text-3xl font-bold text-[#c9a96e]">{item.value}</div>
               <div className="text-white/60 text-sm mt-1">{item.label}</div>
             </div>
