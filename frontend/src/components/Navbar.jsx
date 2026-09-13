@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiMenu, HiX } from 'react-icons/hi'
+import { HiMenu, HiX, HiLockClosed } from 'react-icons/hi'
 
 const navLinks = [
   { label: 'เกี่ยวกับเรา', href: '#about' },
@@ -64,6 +65,13 @@ export default function Navbar() {
           >
             ปรึกษาฟรี
           </button>
+          <Link
+            to="/admin/login"
+            className="inline-flex items-center gap-1.5 border border-white/20 hover:border-[#d4a017] text-white/90 hover:text-[#d4a017] px-3.5 py-1.5 rounded text-sm font-medium transition-all duration-200"
+            title="สำหรับผู้ดูแลระบบ"
+          >
+            <HiLockClosed className="text-xs text-[#d4a017]" /> เข้าสู่ระบบ
+          </Link>
         </nav>
 
         {/* Mobile toggle */}
@@ -99,6 +107,13 @@ export default function Navbar() {
             >
               ปรึกษาฟรี
             </button>
+            <Link
+              to="/admin/login"
+              onClick={() => setMenuOpen(false)}
+              className="mt-3 w-full border border-white/20 text-white/90 text-center py-2.5 rounded text-sm font-medium flex items-center justify-center gap-2 hover:bg-white/5 transition-colors"
+            >
+              <HiLockClosed className="text-[#d4a017]" /> เข้าสู่ระบบ (Admin)
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
