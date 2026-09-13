@@ -1,29 +1,16 @@
-# Dependencies
-node_modules/
+# Root-level gitignore
+# ไม่ควร commit ไฟล์เหล่านี้จากทุก subfolder
 
 # Build output
 dist/
-dist-ssr/
 
-# Local env files
-.env
-.env.local
-.env.*.local
+# SQLite DB
+*.db
 
-# Logs
-logs/
-*.log
-npm-debug.log*
+# OS files
+.DS_Store
+Thumbs.db
 
 # Editor
 .vscode/
 .idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# OS
-.DS_Store
-Thumbs.db

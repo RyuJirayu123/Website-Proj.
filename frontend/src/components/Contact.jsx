@@ -2,6 +2,8 @@ import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { HiPhone, HiMail, HiLocationMarker, HiClock } from 'react-icons/hi'
 
+const API_URL = 'http://localhost:4000'
+
 const info = [
   { icon: HiPhone, label: 'โทรศัพท์', value: '02-xxx-xxxx', href: 'tel:02xxxxxxxx' },
   { icon: HiMail, label: 'อีเมล', value: 'info@alphacapital.th', href: 'mailto:info@alphacapital.th' },
@@ -17,13 +19,30 @@ export default function Contact() {
     name: '', company: '', phone: '', email: '', service: '', message: ''
   })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'เกิดข้อผิดพลาด')
+      setSubmitted(true)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -191,10 +210,17 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-[#0a1f44] hover:bg-[#103578] text-white py-3.5 rounded-lg font-semibold text-sm transition-colors"
+                  disabled={loading}
+                  className="w-full bg-[#0a1f44] hover:bg-[#103578] disabled:opacity-60 disabled:cursor-not-allowed text-white py-3.5 rounded-lg font-semibold text-sm transition-colors"
                 >
-                  ส่งข้อความ →
+                  {loading ? 'กำลังส่ง...' : 'ส่งข้อความ →'}
                 </button>
+
+                {error && (
+                  <p className="text-red-500 text-sm text-center bg-red-50 rounded-lg py-2 px-4">
+                    ⚠️ {error}
+                  </p>
+                )}
 
                 <p className="text-gray-400 text-xs text-center">
                   ข้อมูลของคุณจะถูกเก็บเป็นความลับและไม่ถูกเผยแพร่
