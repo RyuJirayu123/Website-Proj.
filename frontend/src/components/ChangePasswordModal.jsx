@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_URL } from '../api';
 
 export default function ChangePasswordModal({ isOpen, onClose, token }) {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -27,7 +28,7 @@ export default function ChangePasswordModal({ isOpen, onClose, token }) {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:4000/api/admin/change-password', {
+      const response = await fetch(`${API_URL}/api/admin/change-password`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useLang } from '../context/LanguageContext'
+import { API_URL } from '../api'
 
 export default function InsightDetail() {
   const { slug } = useParams()
@@ -10,7 +11,7 @@ export default function InsightDetail() {
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/posts/${slug}`)
+    fetch(`${API_URL}/api/posts/${slug}`)
       .then((res) => {
         if (!res.ok) throw new Error('Not found')
         return res.json()
@@ -111,7 +112,7 @@ export default function InsightDetail() {
           <div className="mt-14 pt-8 border-t border-[#E7E4DC] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <div className="space-y-1">
               <span className="editorial-label text-[#9A7B44] block">Practice Leadership</span>
-              <h4 className="text-sm font-semibold text-[#070E1B]">Alpha Capital Advisory Group</h4>
+              <h4 className="text-sm font-semibold text-[#070E1B]">Apex Capital Advisory Group</h4>
               <p className="text-xs text-[#5D6574]">SEC Thailand Licensed Advisory Practice • Mandate Research Desk</p>
             </div>
 

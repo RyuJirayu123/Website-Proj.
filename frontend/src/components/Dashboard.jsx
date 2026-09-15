@@ -8,8 +8,7 @@ import {
 import AdminPosts from './AdminPosts'
 import AdminCases from './AdminCases'
 import ChangePasswordModal from './ChangePasswordModal'
-
-const API_URL = 'http://localhost:4000'
+import { API_URL } from '../api'
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('contacts') // 'contacts' | 'posts' | 'cases'
@@ -98,12 +97,12 @@ export default function Dashboard() {
       <header className="bg-[#1a2332] text-white shadow-md">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link to="/" className="w-8 h-8 bg-[#c9a96e] rounded flex items-center justify-center font-bold text-white">
+            <Link to="/" className="w-8 h-8 bg-[#9A7B44] flex items-center justify-center font-bold text-white font-serif">
               A
             </Link>
             <div>
-              <span className="font-bold text-lg">Alpha Capital</span>
-              <span className="text-[#c9a96e] text-xs font-semibold ml-2 px-2 py-0.5 bg-[#c9a96e]/20 rounded">
+              <span className="font-serif font-bold text-lg">Apex Capital</span>
+              <span className="text-[#9A7B44] text-xs font-semibold ml-2 px-2 py-0.5 bg-[#9A7B44]/20">
                 Admin Portal
               </span>
             </div>

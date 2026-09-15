@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../context/LanguageContext'
+import { API_URL } from '../api'
 
 export default function CaseStudies() {
   const { lang } = useLang()
@@ -10,7 +11,7 @@ export default function CaseStudies() {
   const [selectedType, setSelectedType] = useState('all')
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/cases')
+    fetch(`${API_URL}/api/cases`)
       .then((res) => res.json())
       .then((data) => {
         setCases(data.data || data || [])
@@ -67,8 +68,8 @@ export default function CaseStudies() {
 
               <p className="font-sans text-[15px] text-white/70 max-w-2xl leading-relaxed">
                 {lang === 'th'
-                  ? 'Alpha Capital Advisory Group ให้บริการเป็นที่ปรึกษาทางการเงินระดับคณะกรรมการบริหาร การทำธุรกรรม M&A การระดมทุนขนาดใหญ่ และการปรับโครงสร้างทุนสำหรับองค์กรชั้นนำทั้งในและต่างประเทศ'
-                  : 'Alpha Capital Advisory Group provides board-level M&A transaction execution, cross-border syndicate structuring, and recapitalization advisory for prominent institutional entities across Southeast Asia.'}
+                  ? 'Apex Capital Advisory Group ให้บริการเป็นที่ปรึกษาทางการเงินระดับคณะกรรมการบริหาร การทำธุรกรรม M&A การระดมทุนขนาดใหญ่ และการปรับโครงสร้างทุนสำหรับองค์กรชั้นนำทั้งในและต่างประเทศ'
+                  : 'Apex Capital Advisory Group provides board-level M&A transaction execution, cross-border syndicate structuring, and recapitalization advisory for prominent institutional entities across Southeast Asia.'}
               </p>
             </div>
 
@@ -348,7 +349,7 @@ export default function CaseStudies() {
 
                 <div className="pt-6 mt-6 border-t border-[#E7E4DC] flex items-center justify-between text-[11px] uppercase tracking-widest text-[#5D6574]">
                   <span>Verified Mandate</span>
-                  <span className="text-[#070E1B] font-semibold">Alpha Capital</span>
+                  <span className="text-[#070E1B] font-semibold">Apex Capital</span>
                 </div>
               </article>
             ))}
@@ -365,7 +366,7 @@ export default function CaseStudies() {
               Our Institutional Advisory Rigor
             </h3>
             <p className="text-[14px] text-[#5D6574] leading-relaxed">
-              ทุกธุรกรรมที่บริหารจัดการโดย Alpha Capital ผ่านกระบวนการวิเคราะห์เชิงลึก การสร้างแบบจำลองทางการเงินที่รัดกุม และการปฏิบัติตามหลักเกณฑ์ของหน่วยงานกำกับดูแลอย่างเคร่งครัด
+              ทุกธุรกรรมที่บริหารจัดการโดย Apex Capital ผ่านกระบวนการวิเคราะห์เชิงลึก การสร้างแบบจำลองทางการเงินที่รัดกุม และการปฏิบัติตามหลักเกณฑ์ของหน่วยงานกำกับดูแลอย่างเคร่งครัด
             </p>
           </div>
 

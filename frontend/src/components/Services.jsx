@@ -1,107 +1,86 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import {
-  HiTrendingUp, HiCurrencyDollar, HiOfficeBuilding,
-  HiChartBar, HiRefresh, HiGlobe
-} from 'react-icons/hi'
-
-const services = [
-  {
-    icon: HiTrendingUp,
-    title: 'M&A Advisory',
-    desc: 'ให้คำปรึกษาการควบรวมและซื้อกิจการ ทั้งฝั่งผู้ซื้อและผู้ขาย ด้วยกระบวนการที่รัดกุมและเครือข่ายนักลงทุนที่กว้างขวาง',
-  },
-  {
-    icon: HiCurrencyDollar,
-    title: 'การระดมทุน',
-    desc: 'ออกแบบโครงสร้างการระดมทุนที่เหมาะสม ไม่ว่าจะเป็น IPO, PP, Rights Offering หรือ Bond Issuance',
-  },
-  {
-    icon: HiOfficeBuilding,
-    title: 'Valuation & Due Diligence',
-    desc: 'ประเมินมูลค่ากิจการด้วยมาตรฐานสากล พร้อม Due Diligence รอบด้านทั้ง Financial, Legal และ Business',
-  },
-  {
-    icon: HiChartBar,
-    title: 'กลยุทธ์องค์กร',
-    desc: 'วางแผนกลยุทธ์การเติบโต การขยายธุรกิจ และการปรับโครงสร้างองค์กรให้พร้อมรับการเปลี่ยนแปลง',
-  },
-  {
-    icon: HiRefresh,
-    title: 'Restructuring',
-    desc: 'ปรับโครงสร้างทางการเงินและหนี้สิน เพื่อฟื้นฟูสภาพคล่องและเพิ่มความสามารถในการแข่งขัน',
-  },
-  {
-    icon: HiGlobe,
-    title: 'Cross-Border Advisory',
-    desc: 'ให้คำปรึกษาธุรกรรมข้ามพรมแดน ด้วยเครือข่ายพันธมิตรนานาชาติในเอเชีย ยุโรป และสหรัฐอเมริกา',
-  },
-]
+import { useNavigate } from 'react-router-dom'
+import { useLang } from '../context/LanguageContext'
 
 export default function Services() {
+  const { t } = useLang()
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const navigate = useNavigate()
+
+  const practices = t.services.items || []
 
   return (
-    <section id="services" className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
+    <section id="services" className="w-full py-20 lg:py-24 bg-[#FAF9F6] border-b border-[#E7E4DC]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        {/* Section Header */}
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center max-w-3xl mx-auto mb-14"
         >
-          <span className="text-[#c9a96e] font-semibold text-sm uppercase tracking-widest">
-            บริการของเรา
+          <span className="font-sans text-[11px] font-semibold text-[#765A26] uppercase tracking-[0.2em] block">
+            {t.services.label}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mt-3 mb-5">
-            บริการที่ปรึกษาครบวงจร
+          <h2 className="font-serif text-[32px] sm:text-[40px] font-bold text-[#0B1528] mt-2">
+            {t.services.heading}
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            เราให้บริการที่ปรึกษาทางการเงินอย่างครอบคลุม
-            ออกแบบมาเพื่อตอบโจทย์ธุรกิจในทุกขั้นตอน
+          <p className="font-sans text-sm sm:text-base text-[#45474D] mt-3 leading-relaxed">
+            {t.services.sub}
           </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, i) => (
+        {/* 4 Strategic Practice Pillars */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {practices.map((practice, i) => (
             <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 30 }}
+              key={practice.title}
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group bg-white rounded-lg p-7 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-[#c9a96e]/40 cursor-default"
+              transition={{ duration: 0.45, delay: i * 0.1 }}
+              className="bg-white p-8 lg:p-10 shadow-xs border border-[#E7E4DC] flex flex-col justify-between hover:border-[#9A7B44] hover:shadow-md transition-all duration-300"
             >
-              <div className="inline-flex p-3 rounded-lg bg-[#1a2332] text-white mb-5">
-                <service.icon className="text-2xl" />
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-serif text-2xl font-bold text-[#765A26]">
+                    {practice.num}
+                  </span>
+                  <span className="font-sans text-[10.5px] px-2.5 py-1 bg-[#EFEEEB] text-[#1A1C1A] uppercase font-bold tracking-wider">
+                    {practice.tag}
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-xl sm:text-[22px] font-bold text-[#0B1528] mb-3">
+                  {practice.title}
+                </h3>
+
+                <p className="font-sans text-sm text-[#45474D] mb-6 leading-relaxed">
+                  {practice.desc}
+                </p>
+
+                <div className="bg-[#F4F3F1] border-l-2 border-[#765A26] p-4 mb-6">
+                  <span className="font-sans text-[10.5px] font-bold text-[#765A26] uppercase tracking-wider block mb-1">
+                    {practice.mandateLabel}
+                  </span>
+                  <p className="font-sans text-xs sm:text-[13px] text-[#1A1C1A] font-medium leading-normal">
+                    {practice.mandateDesc}
+                  </p>
+                </div>
               </div>
-              <h3 className="text-[#1a2332] font-bold text-lg mb-3 group-hover:text-[#c9a96e] transition-colors">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                {service.desc}
-              </p>
+
+              <button
+                onClick={() => navigate('/case-studies')}
+                className="font-sans text-xs font-bold uppercase tracking-wider text-[#765A26] hover:text-[#0B1528] transition-colors flex items-center gap-1.5 self-start pt-2"
+              >
+                <span>{practice.linkText}</span>
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </button>
             </motion.div>
           ))}
         </div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="text-center mt-12"
-        >
-          <button
-            onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-[#1a2332] hover:bg-[#2d3748] text-white px-8 py-3.5 rounded font-semibold transition-colors"
-          >
-            ปรึกษาผู้เชี่ยวชาญฟรี
-          </button>
-        </motion.div>
       </div>
     </section>
   )

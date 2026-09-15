@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiMenu, HiX, HiLockClosed } from 'react-icons/hi'
+import { HiMenu, HiX } from 'react-icons/hi'
 import { useLang } from '../context/LanguageContext'
+import ApexLogo from './ApexLogo'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -11,19 +12,8 @@ export default function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const navLinks = [
-    { label: t.nav.about, href: '#about' },
-    { label: t.nav.services, href: '#services' },
-    { label: t.nav.whyUs, href: '#why-us' },
-    { label: t.nav.caseStudies, path: '/case-studies' },
-    { label: t.nav.insights, path: '/insights' },
-    { label: t.nav.team, href: '#team' },
-    { label: t.nav.testimonials, href: '#testimonials' },
-    { label: t.nav.contact, href: '#contact' },
-  ]
-
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => setScrolled(window.scrollY > 30)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -45,135 +35,145 @@ export default function Navbar() {
 
   const isHome = location.pathname === '/'
 
+  const navLinks = [
+    { label: t.nav.about || 'About Firm', href: '#about' },
+    { label: t.nav.services || 'Advisory Services', href: '#services' },
+    { label: t.nav.caseStudies || 'Track Record & Tombstones', path: '/case-studies' },
+    { label: t.nav.insights || 'Insights & Research', path: '/insights' },
+    { label: t.nav.contact || 'Client Portal', href: '#contact' },
+  ]
+
   return (
     <>
-      {/* Top Ticker Bar */}
+      {/* Top Institutional Ticker & Accreditation Bar */}
       <aside className="w-full bg-[#070E1B] text-[#8A92A0] text-[11px] border-b border-[#1E2B45] hidden md:block fixed top-0 left-0 right-0 z-50">
-        <div className="max-w-[1360px] mx-auto px-6 sm:px-8 h-8 flex items-center justify-between font-sans">
-          <div className="flex items-center space-x-6 tracking-wide">
-            <span className="inline-flex items-center text-[#9A7B44]">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-8 flex items-center justify-between font-sans">
+          <div className="flex items-center space-x-5 tracking-wide">
+            <span className="inline-flex items-center text-[#9A7B44] font-semibold">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#9A7B44] mr-2 animate-pulse" />
-              SEC THAILAND LICENSED ADVISORY
+              SEC THAILAND LICENSED ADVISOR
             </span>
-            <span className="text-[#5D6574]">|</span>
+            <span className="text-[#334155]">|</span>
             <span>SET Index: <strong className="text-white font-medium">1,418.32</strong> (+0.42%)</span>
-            <span className="text-[#5D6574]">|</span>
+            <span className="text-[#334155]">|</span>
             <span>THB/USD: <strong className="text-white font-medium">34.62</strong></span>
-            <span className="text-[#5D6574]">|</span>
+            <span className="text-[#334155]">|</span>
             <span>M&A Volume (SEA): <strong className="text-[#9A7B44] font-medium">$18.4B</strong></span>
           </div>
           <div className="flex items-center space-x-4">
             <span className="text-[#8A92A0]">Bangkok • Singapore • London</span>
-            <span className="text-[#5D6574]">/</span>
-            <button
-              onClick={() => handleNav({ href: '#contact' })}
-              className="text-[#8A92A0] hover:text-white transition-colors"
-            >
-              Institutional Inquiries
-            </button>
+            <span className="text-[#334155]">/</span>
+            <span className="inline-flex items-center gap-1.5 text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              APEX &lt;GO&gt; ONLINE
+            </span>
           </div>
         </div>
       </aside>
 
-      {/* Main Navigation Header */}
+      {/* Main Stitch Navigation Header */}
       <header
         className={`fixed left-0 right-0 z-40 transition-all duration-300 top-0 md:top-8 ${
           scrolled || !isHome
-            ? 'bg-[#FAF9F6]/95 backdrop-blur-md border-b border-[#E7E4DC] text-[#070E1B] shadow-sm'
-            : 'bg-transparent text-white'
+            ? 'bg-[#FAF9F6]/95 backdrop-blur-md border-b border-[#E7E4DC] text-[#0B1528] shadow-[0_1px_8px_rgba(0,0,0,0.04)]'
+            : 'bg-[#FAF9F6]/90 backdrop-blur-md border-b border-[#E7E4DC]/60 text-[#0B1528]'
         }`}
       >
-        <div className="max-w-[1360px] mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
-          {/* Brand Crest & Monogram */}
-          <Link
-            to="/"
-            onClick={() => {
-              if (isHome) window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}
-            className="flex items-center gap-3.5 group"
-          >
-            <div className="w-10 h-10 border border-[#9A7B44]/40 flex items-center justify-center bg-[#070E1B] text-white transition-colors group-hover:border-[#9A7B44]">
-              <span className="font-serif text-xl font-bold tracking-widest text-[#9A7B44]">A</span>
-            </div>
-            <div className="flex flex-col">
-              <span
-                className={`font-serif text-[19px] tracking-[0.08em] uppercase font-semibold leading-tight transition-colors ${
-                  scrolled || !isHome ? 'text-[#070E1B] group-hover:text-[#9A7B44]' : 'text-white group-hover:text-[#B89758]'
-                }`}
-              >
-                Alpha Capital
-              </span>
-              <span className="editorial-label text-[#9A7B44] font-semibold tracking-[0.22em]">
-                Advisory Group
-              </span>
-            </div>
-          </Link>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between gap-4">
+          {/* Brand Logo & SEC Tag */}
+          <div className="flex items-center gap-4">
+            <Link
+              to="/"
+              onClick={() => {
+                if (isHome) window.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+              className="flex items-center gap-2 group"
+            >
+              <ApexLogo variant="dark" className="h-9 w-auto" />
+            </Link>
 
-          {/* Refined Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-7 text-[12.5px] tracking-[0.08em] font-medium uppercase">
+            <div className="hidden xl:flex items-center bg-[#F4F3F1] border border-[#E7E4DC] px-2.5 py-0.5">
+              <span className="font-sans text-[10px] text-[#765A26] font-semibold tracking-wider uppercase">
+                SEC Thailand Licensed Advisor
+              </span>
+            </div>
+          </div>
+
+          {/* Desktop Nav Links */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => handleNav(link)}
-                className={`transition-colors py-1 ${
-                  scrolled || !isHome
-                    ? 'text-[#5D6574] hover:text-[#070E1B]'
-                    : 'text-white/80 hover:text-white'
-                }`}
+                className="font-sans text-[12.5px] font-semibold uppercase tracking-[0.06em] text-[#45474D] hover:text-[#0B1528] transition-colors py-1"
               >
                 {link.label}
               </button>
             ))}
           </nav>
 
-          {/* Actions & Language Switch */}
-          <div className="flex items-center gap-4">
-            {/* Understated Bilingual Toggle */}
-            <div className="inline-flex items-center text-[11px] font-semibold tracking-wider uppercase border border-[#E7E4DC]">
+          {/* Action Area: Language Switch, Data Room, Consultation, Admin */}
+          <div className="flex items-center gap-3">
+            {/* TH / EN Switcher */}
+            <div className="hidden sm:flex items-center bg-[#F4F3F1] border border-[#E7E4DC] px-1.5 py-0.5">
               <button
                 type="button"
                 onClick={() => setLang('th')}
-                className={`px-2.5 py-1 transition-colors ${
-                  lang === 'th' ? 'bg-[#070E1B] text-white' : 'bg-transparent text-[#5D6574] hover:text-[#070E1B]'
+                className={`font-sans text-[11px] px-2 py-0.5 transition-colors font-bold ${
+                  lang === 'th' ? 'text-[#0B1528] bg-white shadow-xs' : 'text-[#76777D] hover:text-[#0B1528]'
                 }`}
               >
                 TH
               </button>
+              <span className="text-[#C6C6CD] text-xs">|</span>
               <button
                 type="button"
                 onClick={() => setLang('en')}
-                className={`px-2.5 py-1 transition-colors ${
-                  lang === 'en' ? 'bg-[#070E1B] text-white' : 'bg-transparent text-[#5D6574] hover:text-[#070E1B]'
+                className={`font-sans text-[11px] px-2 py-0.5 transition-colors font-bold ${
+                  lang === 'en' ? 'text-[#0B1528] bg-white shadow-xs' : 'text-[#76777D] hover:text-[#0B1528]'
                 }`}
               >
                 EN
               </button>
             </div>
 
-            {/* Portal Action Link */}
+            {/* Data Room Link */}
             <Link
               to="/admin/login"
-              className={`hidden sm:inline-flex items-center text-[11.5px] font-medium tracking-wider uppercase px-3.5 py-1.5 transition-colors border ${
-                scrolled || !isHome
-                  ? 'border-[#070E1B] text-[#070E1B] hover:bg-[#070E1B] hover:text-white'
-                  : 'border-white/40 text-white hover:border-white hover:bg-white/10'
-              }`}
+              className="hidden md:inline-flex items-center font-sans text-[11.5px] font-semibold uppercase tracking-wider px-3.5 py-2 text-[#0B1528] bg-[#F4F3F1] hover:bg-[#E9E8E5] border border-[#E7E4DC] transition-colors"
             >
-              <span>{t.nav.login}</span>
-              <span className="material-symbols-outlined text-[13px] ml-1.5">lock</span>
+              {t.nav.dataRoom || 'Data Room'}
             </Link>
 
-            {/* Mobile menu hamburger */}
+            {/* Main Consultation CTA */}
             <button
-              className={`lg:hidden text-2xl ${scrolled || !isHome ? 'text-[#070E1B]' : 'text-white'}`}
+              onClick={() => handleNav({ href: '#contact' })}
+              className="font-sans text-[11.5px] font-bold uppercase tracking-wider px-4 py-2 bg-[#765A26] text-white hover:bg-[#5B4210] shadow-sm transition-colors"
+            >
+              {t.nav.consult || 'นัดหมายปรึกษา'}
+            </button>
+
+            {/* User/Admin Profile Icon */}
+            <Link
+              to="/admin/login"
+              title="Admin Portal"
+              className="w-8 h-8 rounded-full bg-[#0B1528] flex items-center justify-center text-white hover:bg-[#9A7B44] transition-colors"
+            >
+              <span className="material-symbols-outlined text-[17px]">person</span>
+            </Link>
+
+            {/* Mobile Hamburger */}
+            <button
+              className="lg:hidden text-2xl text-[#0B1528] p-1"
               onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
             >
               {menuOpen ? <HiX /> : <HiMenu />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Flyout Menu */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
@@ -182,29 +182,50 @@ export default function Navbar() {
               exit={{ opacity: 0, y: -10 }}
               className="lg:hidden bg-[#070E1B] text-white border-t border-[#1E2B45] px-6 pb-6 pt-3"
             >
+              <div className="flex items-center justify-between py-2 border-b border-white/10 mb-2">
+                <span className="font-sans text-[11px] text-[#9A7B44] uppercase tracking-wider">
+                  SEC THAILAND LICENSED ADVISOR
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setLang('th')}
+                    className={`text-xs px-2 py-0.5 ${lang === 'th' ? 'bg-[#9A7B44] text-[#070E1B] font-bold' : 'text-white/60'}`}
+                  >
+                    TH
+                  </button>
+                  <button
+                    onClick={() => setLang('en')}
+                    className={`text-xs px-2 py-0.5 ${lang === 'en' ? 'bg-[#9A7B44] text-[#070E1B] font-bold' : 'text-white/60'}`}
+                  >
+                    EN
+                  </button>
+                </div>
+              </div>
+
               {navLinks.map((link) => (
                 <button
                   key={link.label}
                   onClick={() => handleNav(link)}
-                  className="block w-full text-left text-white/80 hover:text-[#9A7B44] py-3 text-sm font-medium border-b border-white/5"
+                  className="block w-full text-left text-white/90 hover:text-[#9A7B44] py-3 text-sm font-medium border-b border-white/5 uppercase tracking-wider font-sans"
                 >
                   {link.label}
                 </button>
               ))}
-              <div className="pt-4 flex gap-2">
+
+              <div className="pt-4 flex flex-col gap-2">
                 <button
                   onClick={() => handleNav({ href: '#contact' })}
-                  className="flex-1 bg-[#9A7B44] hover:bg-[#B89758] text-[#070E1B] py-2.5 font-semibold text-xs uppercase tracking-wider text-center transition-colors"
+                  className="w-full bg-[#9A7B44] hover:bg-[#B89758] text-[#070E1B] py-3 font-bold text-xs uppercase tracking-wider text-center transition-colors shadow-sm"
                 >
-                  {t.nav.consult}
+                  {t.nav.consult || 'นัดหมายรับคำปรึกษา'}
                 </button>
                 <Link
                   to="/admin/login"
                   onClick={() => setMenuOpen(false)}
-                  className="px-4 py-2.5 border border-white/20 text-white text-xs uppercase tracking-wider flex items-center justify-center gap-1 hover:border-[#9A7B44]"
+                  className="w-full py-2.5 border border-white/20 text-white text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 hover:border-[#9A7B44]"
                 >
-                  <HiLockClosed className="text-[#9A7B44]" />
-                  <span>Portal</span>
+                  <span className="material-symbols-outlined text-[15px] text-[#9A7B44]">lock</span>
+                  <span>Data Room / Client Portal</span>
                 </Link>
               </div>
             </motion.div>

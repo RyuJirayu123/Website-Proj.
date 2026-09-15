@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { HiLockClosed, HiUser, HiArrowLeft } from 'react-icons/hi'
-
-const API_URL = 'http://localhost:4000'
+import { API_URL } from '../api'
 
 export default function Login() {
   const [username, setUsername] = useState('')
@@ -62,8 +61,8 @@ export default function Login() {
           <div className="w-14 h-14 bg-[#0a1f44] text-[#d4a017] rounded-xl flex items-center justify-center text-2xl font-bold mx-auto mb-4 shadow-md">
             A
           </div>
-          <h1 className="text-2xl font-bold text-[#0a1f44]">เข้าสู่ระบบผู้ดูแล</h1>
-          <p className="text-gray-500 text-sm mt-1">Alpha Capital Advisory Admin Portal</p>
+          <h1 className="text-2xl font-bold text-[#0B1528]">เข้าสู่ระบบผู้ดูแล</h1>
+          <p className="text-gray-500 text-sm mt-1">Apex Capital Advisory Admin Portal</p>
         </div>
 
         {error && (

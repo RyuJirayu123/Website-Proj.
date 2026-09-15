@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../api';
 
 export default function AdminCases({ token }) {
   const [cases, setCases] = useState([]);
@@ -25,7 +26,7 @@ export default function AdminCases({ token }) {
   const fetchCases = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/admin/cases', {
+      const res = await fetch(`${API_URL}/api/admin/cases`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Failed to fetch cases');
@@ -45,7 +46,7 @@ export default function AdminCases({ token }) {
   const handleDelete = async (id) => {
     if (!window.confirm('ยืนยันการลบ?')) return;
     try {
-      const res = await fetch(`http://localhost:4000/api/admin/cases/${id}`, {
+      const res = await fetch(`${API_URL}/api/admin/cases/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -69,8 +70,8 @@ export default function AdminCases({ token }) {
     e.preventDefault();
     try {
       const url = editingCase 
-        ? `http://localhost:4000/api/admin/cases/${editingCase.id}`
-        : 'http://localhost:4000/api/admin/cases';
+        ? `${API_URL}/api/admin/cases/${editingCase.id}`
+        : `${API_URL}/api/admin/cases`;
       
       const method = editingCase ? 'PUT' : 'POST';
 

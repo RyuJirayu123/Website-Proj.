@@ -1,82 +1,89 @@
-import { useRef, useEffect, useState } from 'react'
-import { useInView } from 'framer-motion'
-import { motion } from 'framer-motion'
-
-const stats = [
-  { value: 500, suffix: '+', label: 'ลูกค้าองค์กร', sub: 'ทั่วเอเชียตะวันออกเฉียงใต้' },
-  { value: 200, suffix: 'B+', prefix: '฿', label: 'มูลค่าดีลสะสม', sub: 'ตลอด 20 ปีที่ผ่านมา' },
-  { value: 120, suffix: '+', label: 'ดีล M&A', sub: 'ปิดสำเร็จแล้ว' },
-  { value: 98, suffix: '%', label: 'ความพึงพอใจ', sub: 'จากการสำรวจลูกค้า' },
-]
-
-function CountUp({ target, suffix, prefix, isInView }) {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!isInView) return
-    const duration = 2000
-    const steps = 60
-    const increment = target / steps
-    let current = 0
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= target) {
-        setCount(target)
-        clearInterval(timer)
-      } else {
-        setCount(Math.floor(current))
-      }
-    }, duration / steps)
-    return () => clearInterval(timer)
-  }, [isInView, target])
-
-  return (
-    <span>
-      {prefix}{count}{suffix}
-    </span>
-  )
-}
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useLang } from '../context/LanguageContext'
 
 export default function Stats() {
+  const { t } = useLang()
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const isInView = useInView(ref, { once: true, margin: '-50px' })
+
+  const items = [
+    {
+      tag: t.stats.items[0]?.tag || 'Cumulative Value',
+      icon: 'account_balance',
+      value: t.stats.items[0]?.val || '฿85,000M+',
+      title: t.stats.items[0]?.label || 'มูลค่าธุรกรรมสะสมรวม',
+      desc: t.stats.items[0]?.desc || 'Cumulative M&A and Capital Advisory completed mandates since inception.',
+    },
+    {
+      tag: t.stats.items[1]?.tag || 'Executive Pedigree',
+      icon: 'military_tech',
+      value: t.stats.items[1]?.val || '35+ ปี',
+      title: t.stats.items[1]?.label || 'ประสบการณ์เฉลี่ยพาร์ทเนอร์',
+      desc: t.stats.items[1]?.desc || 'Tier-1 global investment banking background with SET & international markets.',
+    },
+    {
+      tag: t.stats.items[2]?.tag || 'Regulatory Rigor',
+      icon: 'gavel',
+      value: t.stats.items[2]?.val || '100%',
+      title: t.stats.items[2]?.label || 'SEC Fiduciary License',
+      desc: t.stats.items[2]?.desc || 'Licensed by SEC Thailand to issue Independent Financial Advisor (IFA) opinions.',
+    },
+    {
+      tag: t.stats.items[3]?.tag || 'Execution Mandates',
+      icon: 'handshake',
+      value: t.stats.items[3]?.val || '48+ ดีล',
+      title: t.stats.items[3]?.label || 'ธุรกรรมระดับภูมิภาคสำเร็จ',
+      desc: t.stats.items[3]?.desc || 'Successful completions across Thailand, Singapore, Vietnam, and Indonesia.',
+    },
+  ]
 
   return (
-    <section className="py-20 bg-white">
-      <div ref={ref} className="max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-14"
-        >
-          <span className="text-[#c9a96e] font-semibold text-sm uppercase tracking-widest">
-            ตัวเลขที่พิสูจน์ตัวเอง
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mt-3">
-            ผลงานที่ผ่านมาของเรา
-          </h2>
-        </motion.div>
+    <section className="w-full bg-[#F4F3F1] py-16 lg:py-20 border-b border-[#E7E4DC] shadow-xs">
+      <div ref={ref} className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 gap-4">
+          <div>
+            <span className="font-sans text-[11px] font-semibold text-[#765A26] uppercase tracking-[0.18em] block">
+              {t.stats.label}
+            </span>
+            <h2 className="font-serif text-[28px] sm:text-[34px] font-bold text-[#0B1528] mt-1">
+              {t.stats.heading}
+            </h2>
+          </div>
+          <p className="font-sans text-xs sm:text-[13px] text-[#45474D] max-w-md leading-relaxed">
+            {t.stats.sub}
+          </p>
+        </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, i) => (
+        {/* 4 High-Impact Metric Pillars */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {items.map((item, i) => (
             <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
+              key={item.tag}
+              initial={{ opacity: 0, y: 15 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-gray-50 rounded-lg p-7 text-center border border-gray-100 hover:border-[#c9a96e]/30 hover:shadow-lg transition-all"
+              transition={{ duration: 0.4, delay: i * 0.1 }}
+              className="bg-white p-6 shadow-xs border border-[#E7E4DC] flex flex-col justify-between h-full hover:border-[#9A7B44] transition-colors"
             >
-              <div className="text-3xl md:text-4xl font-bold text-[#c9a96e] mb-2">
-                <CountUp
-                  target={stat.value}
-                  suffix={stat.suffix}
-                  prefix={stat.prefix || ''}
-                  isInView={isInView}
-                />
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-sans text-[10.5px] font-bold text-[#765A26] uppercase tracking-wider">
+                  {item.tag}
+                </span>
+                <span className="material-symbols-outlined text-[#765A26] text-[22px]">
+                  {item.icon}
+                </span>
               </div>
-              <div className="text-[#1a2332] font-semibold text-base mb-1">{stat.label}</div>
-              <div className="text-gray-500 text-xs">{stat.sub}</div>
+              <div>
+                <div className="font-serif text-[38px] lg:text-[42px] font-bold text-[#0B1528] leading-tight mb-1">
+                  {item.value}
+                </div>
+                <p className="font-sans text-[14.5px] font-semibold text-[#0B1528]">
+                  {item.title}
+                </p>
+                <p className="font-sans text-xs text-[#45474D] mt-1.5 leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

@@ -26,13 +26,13 @@ async function sendContactNotification(contact) {
   try {
     const t = getTransporter()
     await t.sendMail({
-      from: `"Alpha Capital Advisory" <${process.env.SMTP_USER}>`,
+      from: `"Apex Capital Advisory Group" <${process.env.SMTP_USER}>`,
       to: process.env.NOTIFY_EMAIL,
       subject: `[แจ้งเตือน] มีข้อความติดต่อใหม่จาก ${contact.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
           <div style="background: #1a2332; padding: 20px; border-radius: 8px; margin-bottom: 24px;">
-            <h2 style="color: #c9a96e; margin: 0;">Alpha Capital Advisory</h2>
+            <h2 style="color: #c9a96e; margin: 0;">Apex Capital Advisory Group</h2>
             <p style="color: #ffffff; margin: 4px 0 0 0; font-size: 14px;">แจ้งเตือน: มีข้อความติดต่อใหม่</p>
           </div>
 
@@ -59,7 +59,7 @@ async function sendContactNotification(contact) {
           </div>
 
           <p style="color: #999; font-size: 12px; text-align: center; margin-top: 24px;">
-            Alpha Capital Advisory · ส่งอัตโนมัติจากระบบเว็บไซต์
+            Apex Capital Advisory Group · ส่งอัตโนมัติจากระบบเว็บไซต์
           </p>
         </div>
       `,

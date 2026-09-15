@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }))
 
 // ─── Routes ───────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', service: 'Alpha Capital Advisory API', timestamp: new Date().toISOString() })
+  res.json({ status: 'ok', service: 'Apex Capital Advisory API', timestamp: new Date().toISOString() })
 })
 
 app.use('/api/contact', contactRoutes)
@@ -47,7 +47,7 @@ async function start() {
 
   app.listen(PORT, () => {
     console.log('')
-    console.log('  🚀 Alpha Capital API is running!')
+    console.log('  🚀 Apex Capital API is running!')
     console.log(`  ➜  Local:  http://localhost:${PORT}`)
     console.log(`  ➜  Health: http://localhost:${PORT}/api/health`)
     console.log(`  ➜  Posts:  http://localhost:${PORT}/api/posts`)

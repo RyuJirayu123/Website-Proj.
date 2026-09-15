@@ -1,106 +1,127 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { HiArrowRight } from 'react-icons/hi'
 import { useLang } from '../context/LanguageContext'
+import { API_URL } from '../api'
 
-const API_URL = 'http://localhost:4000'
+// Default fallback tombstones straight from Stitch design
+const defaultTombstones = [
+  {
+    id: 1,
+    category: 'Cross-Border Acquisition',
+    title: 'SIAM RENEWABLE HOLDINGS',
+    subtitle: 'Acquisition of 65% Equity Interest in Mekong Solar Infrastructure (Vietnam)',
+    value: '฿14,200,000,000',
+    role: 'Sole Financial Advisor to Buyer',
+  },
+  {
+    id: 2,
+    category: 'Capital Market • SET mai Pre-IPO',
+    title: 'LOGISTECH INNOVATIONS PLC',
+    subtitle: 'Private Placement Equity Expansion & Initial Public Offering Underwriting',
+    value: '฿4,850,000,000',
+    role: 'Joint Financial Advisor & Lead Arranger',
+  },
+  {
+    id: 3,
+    category: 'Recapitalization & Synergies',
+    title: 'PACIFIC HEALTHCARE CORP',
+    subtitle: 'Strategic Divestment of Non-Core Diagnostic Facilities & Senior Debt Refinancing',
+    value: '฿7,600,000,000',
+    role: 'Exclusive Fiduciary Advisor to the Board',
+  },
+]
 
 export default function FeaturedCases() {
   const { t, lang } = useLang()
-  const [cases, setCases] = useState([])
-  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
+  const [cases, setCases] = useState(defaultTombstones)
 
   useEffect(() => {
     fetch(`${API_URL}/api/cases`)
       .then((r) => r.json())
       .then((d) => {
-        setCases((d.data || d || []).slice(0, 3))
-        setLoading(false)
+        const fetched = d.data || d || []
+        if (Array.isArray(fetched) && fetched.length > 0) {
+          const mapped = fetched.slice(0, 3).map((item) => ({
+            id: item.id,
+            category: item.sector || 'Financial Advisory',
+            title: (lang === 'th' ? item.title_th : item.title_en) || 'CORPORATE TRANSACTION',
+            subtitle: (lang === 'th' ? item.description_th : item.description_en) || '',
+            value: item.deal_value || '฿10,000,000,000',
+            role: (lang === 'th' ? item.result_th : item.result_en) || 'Financial Advisor',
+          }))
+          setCases(mapped)
+        }
       })
-      .catch(() => setLoading(false))
-  }, [])
-
-  if (loading || cases.length === 0) return null
+      .catch(() => {
+        // keep defaultTombstones from Stitch
+      })
+  }, [lang])
 
   return (
-    <section className="py-20 bg-[#FAF9F6] border-t border-[#E7E4DC]">
-      <div className="max-w-[1360px] mx-auto px-6 sm:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12 pb-5 border-b border-[#E7E4DC]"
-        >
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#9A7B44]" />
-            <span className="editorial-label text-[#9A7B44]">{t.cases.featuredLabel}</span>
+    <section className="w-full bg-[#EFEEEB] py-16 lg:py-20 border-b border-[#E7E4DC] shadow-xs">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 gap-4">
+          <div>
+            <span className="font-sans text-[11px] font-semibold text-[#765A26] uppercase tracking-[0.18em] block">
+              {t.cases.featuredLabel}
+            </span>
+            <h2 className="font-serif text-[28px] sm:text-[34px] font-bold text-[#0B1528] mt-1">
+              {t.cases.featuredHeading}
+            </h2>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <h2 className="font-serif text-3xl sm:text-4xl text-[#070E1B] font-normal">
-                {t.cases.featuredHeading}
-              </h2>
-              <p className="text-[#5D6574] text-sm mt-1 max-w-xl font-sans">
-                {t.cases.featuredSub}
-              </p>
-            </div>
-            <Link
-              to="/case-studies"
-              className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-[#070E1B] hover:text-[#9A7B44] border-b border-[#070E1B] hover:border-[#9A7B44] pb-0.5 transition-colors whitespace-nowrap"
-            >
-              {t.cases.viewAll} <HiArrowRight />
-            </Link>
-          </div>
-        </motion.div>
+          <Link
+            to="/case-studies"
+            className="font-sans text-xs font-bold uppercase tracking-wider text-[#765A26] hover:text-[#0B1528] transition-colors flex items-center gap-1.5"
+          >
+            <span>{t.cases.viewAll}</span>
+            <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </Link>
+        </div>
 
-        {/* Tombstone Card Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* 3 Classic Financial Tombstone Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {cases.map((item, i) => (
-            <motion.article
+            <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="tombstone-card bg-white border border-[#E7E4DC] p-7 flex flex-col justify-between"
+              className="bg-white p-7 lg:p-8 shadow-xs border border-[#E7E4DC] flex flex-col items-center text-center justify-between min-h-[360px] tombstone-card"
             >
-              <div>
-                {/* Header Stamp */}
-                <div className="flex items-center justify-between pb-3 border-b border-[#E7E4DC] text-[11px] mb-4">
-                  <span className="editorial-label text-[#9A7B44] font-semibold">{item.sector || 'Advisory'}</span>
-                  <span className="text-[#5D6574]">{item.deal_year}</span>
+              <div className="w-full">
+                <span className="font-sans text-[10.5px] font-bold text-[#765A26] uppercase tracking-wider block mb-3">
+                  {item.category}
+                </span>
+
+                <div className="font-serif text-[20px] font-bold text-[#0B1528] tracking-tight py-1 uppercase">
+                  {item.title}
                 </div>
 
-                {/* Title */}
-                <h3 className="font-serif text-[20px] leading-snug text-[#070E1B] font-normal mb-2 hover:text-[#9A7B44] transition-colors">
-                  <Link to="/case-studies">
-                    {lang === 'th' ? item.title_th : item.title_en}
-                  </Link>
-                </h3>
-
-                {/* Description */}
-                <p className="text-[#5D6574] text-xs leading-relaxed mb-6 line-clamp-2">
-                  {lang === 'th' ? item.description_th : item.description_en}
+                <p className="font-sans text-xs text-[#45474D] max-w-xs mx-auto mt-2 leading-relaxed">
+                  {item.subtitle}
                 </p>
-
-                {/* Formal Deal Value box */}
-                {item.deal_value && (
-                  <div className="border border-[#E7E4DC] bg-[#FAF9F6] p-3.5 text-center mb-4">
-                    <div className="editorial-label text-[#5D6574] text-[10px]">Transaction Mandate Value</div>
-                    <div className="font-serif text-2xl font-normal text-[#070E1B] mt-0.5">{item.deal_value}</div>
-                  </div>
-                )}
               </div>
 
-              <div className="border-t border-[#E7E4DC] pt-3 flex items-center justify-between text-[11px]">
-                <span className="text-[#5D6574]">Verified Mandate</span>
-                <span className="text-[#9A7B44] font-semibold">Alpha Capital</span>
+              <div className="w-full my-6 bg-[#F4F3F1] py-3.5 px-4 border-y border-[#E7E4DC]">
+                <div className="font-serif text-[26px] sm:text-[30px] font-bold text-[#0B1528] tracking-tight">
+                  {item.value}
+                </div>
               </div>
-            </motion.article>
+
+              <div className="w-full border-t border-[#E7E4DC]/80 pt-3">
+                <span className="font-sans text-[11px] text-[#765A26] uppercase block font-bold tracking-wider">
+                  {item.role}
+                </span>
+                <span className="font-sans text-[10px] text-[#45474D]/70 block mt-1 uppercase tracking-wider">
+                  Apex Capital Advisory Group
+                </span>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

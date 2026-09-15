@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '../context/LanguageContext'
+import { API_URL } from '../api'
 
 export default function Insights() {
   const { t, lang } = useLang()
@@ -11,7 +12,7 @@ export default function Insights() {
   const [sortBy, setSortBy] = useState('recent')
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/posts')
+    fetch(`${API_URL}/api/posts`)
       .then((res) => res.json())
       .then((data) => {
         setPosts(data.data || data || [])

@@ -10,6 +10,7 @@ import Testimonials from './components/Testimonials'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FeaturedCases from './components/FeaturedCases'
+import InsightsPreview from './components/InsightsPreview'
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import Insights from './pages/Insights'
@@ -18,15 +19,16 @@ import CaseStudies from './pages/CaseStudies'
 
 function HomePage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#FAF9F6] text-[#1A1C1A]">
       <Navbar />
       <main>
         <Hero />
-        <About />
-        <Services />
-        <WhyUs />
         <Stats />
+        <Services />
         <FeaturedCases />
+        <InsightsPreview />
+        <About />
+        <WhyUs />
         <Team />
         <Testimonials />
         <Contact />
@@ -53,10 +55,10 @@ export default function App() {
         <Route path="/insights" element={<Insights />} />
         <Route path="/insights/:slug" element={<InsightDetail />} />
 
-        {/* Case Studies */}
+        {/* Case Studies / Track Record */}
         <Route path="/case-studies" element={<CaseStudies />} />
 
-        {/* Admin */}
+        {/* Admin / Client Portal */}
         <Route path="/admin/login" element={<Login />} />
         <Route
           path="/admin/dashboard"

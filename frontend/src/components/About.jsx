@@ -1,102 +1,116 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { HiCheckCircle } from 'react-icons/hi'
-
-const highlights = [
-  'ที่ปรึกษาที่ได้รับใบอนุญาตจาก ก.ล.ต.',
-  'ประสบการณ์ในตลาดทุนมากกว่า 20 ปี',
-  'เชี่ยวชาญทั้งตลาดในและต่างประเทศ',
-  'ทีมงานผู้เชี่ยวชาญเฉพาะทางทุกด้าน',
-]
-
-function AnimatedSection({ children }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5 }}
-    >
-      {children}
-    </motion.div>
-  )
-}
+import { useNavigate } from 'react-router-dom'
+import { useLang } from '../context/LanguageContext'
 
 export default function About() {
-  return (
-    <section id="about" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left – visual card */}
-          <AnimatedSection>
-            <div className="relative">
-              <div className="bg-[#1a2332] rounded-lg p-10 text-white">
-                <div className="text-[#c9a96e] text-5xl font-bold mb-2">20+</div>
-                <div className="text-white/80 mb-8">ปีแห่งความไว้วางใจ</div>
+  const { t } = useLang()
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const navigate = useNavigate()
 
-                <div className="space-y-4">
-                  {[
-                    { label: 'ดีล M&A ที่ปิดสำเร็จ', value: '120+ รายการ' },
-                    { label: 'การระดมทุนสำเร็จ', value: '฿80B+ บาท' },
-                    { label: 'บริษัทที่เข้าจดทะเบียน', value: '45+ บริษัท' },
-                    { label: 'ความพึงพอใจลูกค้า', value: '98%' },
-                  ].map((item) => (
-                    <div key={item.label} className="flex justify-between border-b border-white/10 pb-3">
-                      <span className="text-white/80 text-sm">{item.label}</span>
-                      <span className="text-[#c9a96e] font-semibold text-sm">{item.value}</span>
-                    </div>
-                  ))}
+  const highlights = [
+    t.about.h1,
+    t.about.h2,
+    t.about.h3,
+    t.about.h4,
+  ]
+
+  const stats = [
+    { label: t.about.stat1Label, value: t.about.stat1Val },
+    { label: t.about.stat2Label, value: t.about.stat2Val },
+    { label: t.about.stat3Label, value: t.about.stat3Val },
+    { label: t.about.stat4Label, value: t.about.stat4Val },
+  ]
+
+  return (
+    <section id="about" className="py-20 lg:py-28 bg-[#FAF9F6] border-b border-[#E7E4DC]">
+      <div ref={ref} className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left – Visual Architectural Card */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="relative"
+          >
+            <div className="bg-[#0B1528] p-8 lg:p-10 text-white border border-[#1E2B45] shadow-md">
+              <div className="flex items-baseline justify-between border-b border-white/15 pb-4 mb-6">
+                <div>
+                  <div className="font-serif text-5xl font-bold text-[#9A7B44]">
+                    {t.about.years}
+                  </div>
+                  <div className="font-sans text-xs uppercase tracking-wider text-slate-400 mt-1">
+                    {t.about.yearsLabel}
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="font-sans text-[11px] text-[#9A7B44] font-semibold uppercase tracking-widest block">
+                    Fiduciary Standard
+                  </span>
+                  <span className="font-serif text-lg font-bold text-white">SEC Accredited</span>
                 </div>
               </div>
 
-              {/* Decorative corner card */}
-              <div className="absolute -bottom-6 -right-6 bg-[#c9a96e] rounded-lg p-5 shadow-lg">
-                <div className="text-white text-2xl font-bold">AAA</div>
-                <div className="text-white/80 text-xs mt-1">Credit Rating</div>
+              <div className="space-y-4">
+                {stats.map((item) => (
+                  <div key={item.label} className="flex justify-between border-b border-white/10 pb-3 items-center">
+                    <span className="font-sans text-slate-300 text-xs sm:text-sm">{item.label}</span>
+                    <span className="font-serif text-[#9A7B44] font-bold text-base sm:text-lg">{item.value}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          </AnimatedSection>
 
-          {/* Right – text content */}
-          <AnimatedSection>
-            <div>
-              <span className="text-[#c9a96e] font-semibold text-sm uppercase tracking-widest">
-                เกี่ยวกับเรา
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1a2332] mt-3 mb-6 leading-tight">
-                พันธมิตรทางการเงิน
-                <br />
-                ที่คุณเลือกไว้วางใจได้
-              </h2>
-              <p className="text-[#2d3748] leading-relaxed mb-6">
-                Alpha Capital Advisory คือบริษัทที่ปรึกษาทางการเงินองค์กรชั้นนำ
-                ที่ให้บริการครบวงจรแก่บริษัทมหาชน บริษัทเอกชนขนาดใหญ่
-                และผู้ลงทุนสถาบัน ตั้งแต่ปี 2548
-              </p>
-              <p className="text-[#2d3748] leading-relaxed mb-8">
-                เราเชื่อว่าการตัดสินใจทางการเงินที่ดีคือรากฐานของการเติบโตที่ยั่งยืน
-                ทีมผู้เชี่ยวชาญของเราพร้อมให้คำปรึกษาเชิงลึกด้วยข้อมูลจริงและกลยุทธ์ที่ปรับแต่งเฉพาะสำหรับธุรกิจคุณ
-              </p>
-
-              <ul className="space-y-3">
-                {highlights.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[#2d3748]">
-                    <HiCheckCircle className="text-[#c9a96e] text-xl flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
-                className="mt-8 inline-flex items-center gap-2 bg-[#1a2332] hover:bg-[#2d3748] text-white px-7 py-3 rounded-lg font-semibold transition-colors duration-200"
-              >
-                ดูบริการทั้งหมด
-              </button>
+            {/* Corner Prestige Card */}
+            <div className="absolute -bottom-5 -right-4 sm:-right-6 bg-[#765A26] p-4 text-white shadow-lg border border-[#B89758]/50">
+              <div className="font-serif text-2xl font-bold tracking-tight">FA-094</div>
+              <div className="font-sans text-[10px] uppercase tracking-wider text-white/90 mt-0.5">
+                SEC License No.
+              </div>
             </div>
-          </AnimatedSection>
+          </motion.div>
+
+          {/* Right – Text content */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.15 }}
+          >
+            <span className="font-sans text-[11px] font-semibold text-[#765A26] uppercase tracking-[0.2em] block mb-2">
+              {t.about.label}
+            </span>
+            <h2 className="font-serif text-[32px] sm:text-[40px] font-bold text-[#0B1528] leading-[1.18] mb-5">
+              {t.about.heading}
+            </h2>
+            <p className="font-sans text-sm sm:text-[15px] text-[#45474D] leading-relaxed mb-4">
+              {t.about.p1}
+            </p>
+            <p className="font-sans text-sm sm:text-[15px] text-[#45474D] leading-relaxed mb-6">
+              {t.about.p2}
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-3.5 mb-8">
+              {highlights.map((h, idx) => (
+                <div key={idx} className="flex items-start gap-2.5">
+                  <span className="material-symbols-outlined text-[#765A26] text-[20px] shrink-0 mt-0.5">
+                    verified
+                  </span>
+                  <span className="font-sans text-xs sm:text-[13px] font-medium text-[#1A1C1A]">
+                    {h}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={() => navigate('/case-studies')}
+              className="px-6 py-3.5 bg-[#0B1528] text-white hover:bg-[#1E2B45] font-sans text-xs font-bold uppercase tracking-wider transition-colors inline-flex items-center gap-2 shadow-xs"
+            >
+              <span>{t.about.btn}</span>
+              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+          </motion.div>
         </div>
       </div>
     </section>
