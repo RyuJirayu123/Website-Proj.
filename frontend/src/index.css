@@ -1,14 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy-900: #1a2332;
-  --color-navy-800: #222d3d;
-  --color-navy-700: #2d3748;
-  --color-navy-600: #4a5568;
-  --color-gold-400: #d4c098;
-  --color-gold-500: #c9a96e;
-  --color-gold-600: #a88b4a;
+  --color-brand-obsidian: #070E1B;
+  --color-brand-navy: #0B1528;
+  --color-brand-navy-muted: #142038;
+  --color-brand-gold: #9A7B44;
+  --color-brand-gold-light: #B89758;
+  --color-brand-canvas: #FAF9F6;
+  --color-brand-paper: #FFFFFF;
+  --color-brand-surface: #F4F2EC;
+  --color-brand-border: #E7E4DC;
+  --color-brand-border-dark: #1E2B45;
+  --color-brand-muted: #5D6574;
+  --color-brand-subtle: #8A92A0;
 
+  --color-navy-900: #070E1B;
+  --color-navy-800: #0B1528;
+  --color-navy-700: #142038;
+  --color-navy-600: #2d3748;
+  --color-gold-400: #B89758;
+  --color-gold-500: #9A7B44;
+  --color-gold-600: #745A2B;
+
+  --font-serif: 'Cormorant Garamond', 'EB Garamond', 'Georgia', serif;
   --font-sans: 'Inter', 'Sarabun', ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -18,8 +32,25 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: #ffffff;
-  color: #111827;
+  background-color: #FAF9F6;
+  color: #070E1B;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.editorial-label {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.tombstone-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.tombstone-card:hover {
+  border-color: #9A7B44;
+  box-shadow: 0 4px 20px -4px rgba(18, 27, 47, 0.08);
 }
 
 /* Custom scrollbar */
@@ -30,6 +61,6 @@ body {
   background: #f1f1f1;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1a2332;
+  background: #0B1528;
   border-radius: 3px;
 }
